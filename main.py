@@ -20,8 +20,8 @@ def get_statistic_per_day(start_time, end_time):
     return response.json()['response']['total_count']
 
 
-def get_statistic_per_period():
-    return [(timestamp[0], get_statistic_per_day(timestamp[1], timestamp[2])) for timestamp in get_period_timestamps()]
+def get_statistic_per_period(timestamps_list):
+    return [(timestamp[0], get_statistic_per_day(timestamp[1], timestamp[2])) for timestamp in timestamps_list]
 
 
 def get_day_timestaps(year, month, day):
@@ -37,4 +37,7 @@ def get_period_timestamps(n=7):
 
 
 if __name__ == '__main__':
-    pprint(get_statistic_per_period())
+    period_of_days = 7
+
+    period_timstamps = get_period_timestamps(period_of_days)
+    pprint(get_statistic_per_period(period_timstamps))
