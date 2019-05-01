@@ -1,3 +1,4 @@
 python-dotenv==0.10.1
 requests==2.21.0
+plotly==3.8.1
 

@@ -1,9 +1,11 @@
 import requests
 from dotenv import load_dotenv
 import os
-from pprint import pprint
 import datetime
+import plotly.plotly as py
+import plotly.graph_objs as go
 
+from pprint import pprint
 load_dotenv()
 
 
@@ -47,10 +49,26 @@ def get_period_timestamps(period):
     return [(day, *get_day_timestaps(day.year, day.month, day.day)) for day in period]
 
 
+def create_schedule(statistic: list, name, auto_open=True):
+    trace1 = [go.Bar(
+        x=[day[0].day for day in statistic],
+        y=[day[1] for day in statistic],
+        name=name
+    )]
+    link = py.plot(trace1, filename='Coca-Cola', auto_open=auto_open)
+    return link
+
+
 if __name__ == '__main__':
     period_of_days = 7
 
-    period = get_period()
+    period = get_period(7)
     timestamps = get_period_timestamps(period)
     statistic = get_statistic_per_period(timestamps)
-    pprint(statistic)
+    create_schedule(statistic, 'Coca-Cola')
+
+
+
+
+
+
