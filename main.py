@@ -2,7 +2,7 @@ import requests
 from dotenv import load_dotenv
 import os
 import datetime
-import plotly.plotly as py
+import plotly
 import plotly.graph_objs as go
 import argparse
 
@@ -73,7 +73,7 @@ def create_schedule(statistic: list, name, auto_open=True) -> str:
         y=[day[1] for day in statistic],
         name=name
     )]
-    link = py.plot(trace1, filename=name, auto_open=auto_open)
+    link = plotly.offline.plot(trace1, filename=name, auto_open=auto_open)
     return link
 
 
