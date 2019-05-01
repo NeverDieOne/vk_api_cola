@@ -87,9 +87,3 @@ if __name__ == '__main__':
     period_timestamps = get_period_timestamps(period)
     statistic = get_statistic_per_period(period_timestamps, args.query)
     create_schedule(statistic, args.query)
-
-
-
-
-
-
