@@ -78,9 +78,9 @@ def create_schedule(statistic: list, name, auto_open=True) -> str:
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='description')
-    parser.add_argument('query', help='Qeury for search')
-    parser.add_argument('period', help='Period for search', type=int)
+    parser = argparse.ArgumentParser(description='Create a schedule with the frequency of the request.')
+    parser.add_argument('query', help='Qeury for search.')
+    parser.add_argument('period', help='Period for search.', type=int)
     args = parser.parse_args()
 
     period = get_period(args.period)
