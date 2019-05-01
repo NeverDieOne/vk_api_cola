@@ -5,7 +5,6 @@ import datetime
 import plotly.plotly as py
 import plotly.graph_objs as go
 
-from pprint import pprint
 load_dotenv()
 
 
@@ -55,14 +54,14 @@ def create_schedule(statistic: list, name, auto_open=True):
         y=[day[1] for day in statistic],
         name=name
     )]
-    link = py.plot(trace1, filename='Coca-Cola', auto_open=auto_open)
+    link = py.plot(trace1, filename=name, auto_open=auto_open)
     return link
 
 
 if __name__ == '__main__':
     period_of_days = 7
 
-    period = get_period(7)
+    period = get_period(period_of_days)
     timestamps = get_period_timestamps(period)
     statistic = get_statistic_per_period(timestamps)
     create_schedule(statistic, 'Coca-Cola')
