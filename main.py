@@ -28,16 +28,29 @@ def get_day_timestaps(year, month, day):
     time_delta = datetime.timedelta(days=1)
     day_start = datetime.datetime(year, month, day)
     day_end = day_start + time_delta
-    return datetime.date(day_start.year, day_start.month, day_start.day), day_start.timestamp(), day_end.timestamp()
+    return day_start.timestamp(), day_end.timestamp()
 
 
-def get_period_timestamps(n=7):
-    today = datetime.date.today().day
-    return [get_day_timestaps(2019, 4, day) for day in range(today-n, today)]
+def get_period(n=7):
+    today = datetime.date.today()
+    days = []
+
+    for n in range(1, n+1):  # Чтобы получить статистику за последние 7 дней, начиная со вчера
+        time_delta = datetime.timedelta(days=n)
+        day = today - time_delta
+        days.append(day)
+
+    return days
+
+
+def get_period_timestamps(period):
+    return [(day, *get_day_timestaps(day.year, day.month, day.day)) for day in period]
 
 
 if __name__ == '__main__':
     period_of_days = 7
 
-    period_timstamps = get_period_timestamps(period_of_days)
-    pprint(get_statistic_per_period(period_timstamps))
+    period = get_period()
+    timestamps = get_period_timestamps(period)
+    statistic = get_statistic_per_period(timestamps)
+    pprint(statistic)
