@@ -27,7 +27,7 @@ def get_statistic_per_day(start_time, end_time, query) -> int:
 
 def get_statistic_per_period(timestamps_list, query) -> list:
     """
-    Returns a list with the number of requests for each day.
+    Return a list with the number of requests for each day.
     """
     return [(timestamp[0], get_statistic_per_day(timestamp[1], timestamp[2], query)) for timestamp in timestamps_list]
 
