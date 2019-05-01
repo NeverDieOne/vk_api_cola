@@ -73,7 +73,7 @@ def create_schedule(statistic: list, name, auto_open=True) -> str:
         y=[day[1] for day in statistic],
         name=name
     )]
-    link = plotly.offline.plot(trace1, filename=name, auto_open=auto_open)
+    link = plotly.offline.plot(trace1, filename=f'{name}.html', auto_open=auto_open)
     return link
 
 
