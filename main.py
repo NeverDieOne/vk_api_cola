@@ -29,7 +29,8 @@ def get_statistic_per_period(timestamps_list, query) -> list:
     """
     Return a list with the number of requests for each day.
     """
-    return [(timestamp[0], get_statistic_per_day(timestamp[1], timestamp[2], query)) for timestamp in timestamps_list]
+    return [(date, get_statistic_per_day(day_timestamp_start, day_timsetamp_end, query)) for
+            date, day_timestamp_start, day_timsetamp_end in timestamps_list]
 
 
 def get_day_timestaps(year, month, day) -> tuple:
@@ -49,7 +50,7 @@ def get_period(n=7) -> list:
     today = datetime.date.today()
     days = []
 
-    for n in range(1, n+1):  # Чтобы получить статистику за последние 7 дней, начиная со вчера
+    for n in range(1, n + 1):  # Чтобы получить статистику за последние 7 дней, начиная со вчера
         time_delta = datetime.timedelta(days=n)
         day = today - time_delta
         days.append(day)
@@ -64,13 +65,13 @@ def get_period_timestamps(period) -> list:
     return [(day, *get_day_timestaps(day.year, day.month, day.day)) for day in period]
 
 
-def create_schedule(statistic: list, name, auto_open=True) -> str:
+def create_graph(statistic: list, name, auto_open=True) -> str:
     """
-    Generate a schedule and return the link to this schedule.
+    Generate a graph and return the link to this schedule.
     """
     trace1 = [go.Bar(
-        x=[day[0].day for day in statistic],
-        y=[day[1] for day in statistic],
+        x=[date.day for date, count in statistic],
+        y=[count for date, count in statistic],
         name=name
     )]
     link = plotly.offline.plot(trace1, filename=f'{name}.html', auto_open=auto_open)
@@ -86,4 +87,4 @@ if __name__ == '__main__':
     period = get_period(args.period)
     period_timestamps = get_period_timestamps(period)
     statistic = get_statistic_per_period(period_timestamps, args.query)
-    create_schedule(statistic, args.query)
+    create_graph(statistic, args.query)
